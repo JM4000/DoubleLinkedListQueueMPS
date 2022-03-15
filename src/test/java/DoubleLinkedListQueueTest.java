@@ -11,6 +11,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Juan Marcos Benítez Navone Colomer
  */
 
+/*
+* Tests:
+* 1. appendOfNullListHasSameNodeAsFirstAndLast: append on an empty list should be first and last
+* 2. appendLeftOfNullListHasSameNodeAsFirstAndLast: append left on an empty list should be first and last
+* 3. appendInsertsAtTheEndOfList: append should insert at the end of the list
+* 4. appendLeftInsertsAtTheStartOfList: append left should insert at the start of the list
+* 5. appendANullObjectRaiseAnException: append of a null should raise an exception
+* 6. appendLeftANullObjectRaiseAnException: append left of a null should raise an exception
+* 7. sizeOfAnEmptyQueueIs0: size of an empty queue should be 0
+* 8. sizeThreeElementQueueIs3: size of a 3-elements queue should be 3
+* 9. deleteFirstFromAnEmptyQueueRaiseAnException: delete first on an empty queue should raise an exception
+* 10. deleteFirstWorksAsExpected: delete first should work as intended
+* 11. deleteFirstOnlyElementResultsInAnEmptyQueue: delete first on a 1-element queue results in an empty queue
+* 12. deleteLastFromAnEmptyQueueRaiseAnException: delete last on an empty queue should raise an exception
+* 13. deleteLastWorksAsExpected: delete last should work as intended
+* 14. deleteLastOnlyElementResultsInAnEmptyQueue: delete last on a 1-element queue results in an empty queue
+* 15. peekFirstInAnEmptyQueueRaisesException: peek first on an empty queue should raise an exception
+* 16. peekLastInAnEmptyQueueRaisesException: peek last on an empty queue should raise an exception
+* 17. peekFirstWorkAsExpected: peek first should work as intended
+* 18. peekLastWorkAsExpected: peek last should work as intended
+* */
 
 public class DoubleLinkedListQueueTest {
 
