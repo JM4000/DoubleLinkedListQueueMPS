@@ -1,12 +1,12 @@
 import java.util.Comparator;
 
-public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
+public class DoubleLinkedListQueue<T> implements DoubleEndedQueue {
 
     private DequeNode firstNode;
     private DequeNode lastNode;
     private int size;
 
-    public DoubleLinkedListQueue(){
+    public DoubleLinkedListQueue() {
         firstNode = null;
         lastNode = null;
         size = 0;
@@ -19,15 +19,16 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
     private void sizeDown() {
         this.size--;
     }
+
     @Override
     public void append(DequeNode node) {
 
-        if(node == null){
+        if (node == null) {
             throw new RuntimeException("Can't append a null node");
-        }else{
-            if(firstNode == null){
+        } else {
+            if (firstNode == null) {
                 firstNode = node;
-            }else{
+            } else {
                 node.setPrevious(lastNode);
                 lastNode.setNext(node);
             }
@@ -38,12 +39,12 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     @Override
     public void appendLeft(DequeNode node) {
-        if(node == null){
+        if (node == null) {
             throw new RuntimeException("Can't appendLeft a null node");
-        }else{
-            if(firstNode == null){
+        } else {
+            if (firstNode == null) {
                 lastNode = node;
-            }else{
+            } else {
                 node.setNext(firstNode);
                 firstNode.setPrevious(node);
             }
@@ -55,13 +56,13 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
     @Override
     public void deleteFirst() {
 
-        if(firstNode == null) {
+        if (firstNode == null) {
             throw new RuntimeException("Can't delete from an empty queue");
-        }else{
-            if(firstNode.isLastNode()){
+        } else {
+            if (firstNode.isLastNode()) {
                 firstNode = null;
                 lastNode = null;
-            }else{
+            } else {
                 firstNode.getNext().setPrevious(null);
                 firstNode = firstNode.getNext();
             }
@@ -72,13 +73,13 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     @Override
     public void deleteLast() {
-        if(lastNode == null) {
+        if (lastNode == null) {
             throw new RuntimeException("Can't delete from an empty queue");
-        }else{
-            if(lastNode.isFirstNode()){
+        } else {
+            if (lastNode.isFirstNode()) {
                 firstNode = null;
                 lastNode = null;
-            }else{
+            } else {
                 lastNode.getPrevious().setNext(null);
                 lastNode = lastNode.getPrevious();
             }
@@ -89,13 +90,13 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     @Override
     public DequeNode peekFirst() {
-        if(firstNode == null) throw new RuntimeException("Can't peek an empty queue");
+        if (firstNode == null) throw new RuntimeException("Can't peek an empty queue");
         return firstNode;
     }
 
     @Override
     public DequeNode peekLast() {
-        if(lastNode == null) throw new RuntimeException("Can't peek an empty queue");
+        if (lastNode == null) throw new RuntimeException("Can't peek an empty queue");
         return lastNode;
     }
 
@@ -119,15 +120,20 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     }
 
+
+    /**
+     * Method that sorts de queue
+     * @param comparator
+     */
     @Override
     public void sort(Comparator comparator) {
 
-        if(firstNode == null){
+        if (firstNode == null) {
             throw new RuntimeException("Can't sort an empty List");
-        }else if(firstNode != lastNode) {
+        } else if (firstNode != lastNode) {
             boolean isSorted = isSorted(comparator);
             int index = 0;
-            while(!isSorted){
+            while (!isSorted) {
 
             }
         }
@@ -141,8 +147,8 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
         var nodeOne = this.firstNode;
         var nodeTwo = nodeOne.getNext();
 
-        while (sol && nodeTwo != null){
-            if(comparator.compare(nodeOne,nodeTwo)<0){
+        while (sol && nodeTwo != null) {
+            if (comparator.compare(nodeOne, nodeTwo) < 0) {
                 sol = false;
             }
             nodeOne = nodeTwo;
