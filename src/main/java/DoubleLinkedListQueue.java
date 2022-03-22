@@ -135,12 +135,28 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
             throw new RuntimeException("Can't sort an empty List");
         }else if(firstNode != lastNode) {
             boolean isSorted = isSorted(comparator);
-            int index = 0;
-            while(!isSorted){
-
+            int n = size;
+            for (int i = 0; i < n-1; i++)
+            {
+                int min_idx = i;
+                for (int j = i+1; j < n; j++){
+                    if (comparator.compare(getAt(j).getItem(), getAt(min_idx).getItem())<0) {
+                        min_idx = j;
+                    }
+                    change(getAt(i),getAt(min_idx));
+                }
             }
         }
+    }
 
+    private void change(DequeNode original, DequeNode changed) {
+        DequeNode temp = changed;
+
+        changed.setNext(original.getNext());
+        changed.setPrevious(original.getPrevious());
+
+        original.setNext(temp.getNext());
+        original.setPrevious(temp.getPrevious());
     }
 
     public boolean isSorted(Comparator comparator) {
@@ -150,7 +166,7 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
         var nodeTwo = nodeOne.getNext();
 
         while (sol && nodeTwo != null){
-            if(comparator.compare(nodeOne,nodeTwo)<0){
+            if(comparator.compare(nodeOne.getItem(),nodeTwo.getItem())>0){
                 sol = false;
             }
             nodeOne = nodeTwo;

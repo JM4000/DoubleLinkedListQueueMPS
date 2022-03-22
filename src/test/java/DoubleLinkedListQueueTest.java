@@ -277,8 +277,31 @@ public class DoubleLinkedListQueueTest {
         queue.append(nodeTwo);
         queue.append(nodeThree);
 
-        boolean expextedValue = true;
+        boolean expectedValue = true;
         boolean actualValue = isSorted((DoubleLinkedListQueue<?>) queue);
+
+        assertEquals(expectedValue, actualValue);
+    }
+
+    @Test
+    public void sortWorksAsExpected(){
+        int[] expectedValue = {3,2,1};
+
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeTwo);
+        queue.append(nodeThree);
+        queue.append(nodeOne);
+
+        queue.sort(Comparator.naturalOrder());
+
+        int[] actualValue = {(int)queue.getAt(0).getItem(), (int)queue.getAt(1).getItem(),(int)queue.getAt(2).getItem()};
+
+        assertEquals(expectedValue[0], actualValue[0]);
+        assertEquals(expectedValue[1], actualValue[1]);
+        assertEquals(expectedValue[2], actualValue[2]);
     }
 
     private boolean isSorted(DoubleLinkedListQueue<?> list){
