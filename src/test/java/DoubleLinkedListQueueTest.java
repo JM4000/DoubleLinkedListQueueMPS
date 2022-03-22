@@ -300,7 +300,7 @@ public class DoubleLinkedListQueueTest {
     }
 
     @Test
-    public void isSortedWorkAsExpected(){
+    public void deleteWorksAsExpected(){
         DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
         DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
         DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
@@ -309,23 +309,28 @@ public class DoubleLinkedListQueueTest {
         queue.append(nodeTwo);
         queue.append(nodeThree);
 
-        boolean expectedValue = true;
-        boolean actualValue = isSorted((DoubleLinkedListQueue<?>) queue);
+        queue.delete(nodeOne);
 
-        assertEquals(expectedValue, actualValue);
+        var expectedFirstNode = nodeTwo;
+        var actualFirstNode = queue.peekFirst();
+        var expectedSize = 2;
+        var actualSize = queue.size();
+
+        assertEquals(expectedSize, actualSize);
+        assertEquals(expectedFirstNode, actualFirstNode);
     }
 
     @Test
     public void sortWorksAsExpected(){
-        int[] expectedValue = {3,2,1};
+        int[] expectedValue = {1,2,3};
 
         DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
         DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
         DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
 
         queue.append(nodeTwo);
-        queue.append(nodeThree);
         queue.append(nodeOne);
+        queue.append(nodeThree);
 
         queue.sort(Comparator.naturalOrder());
 
@@ -334,10 +339,5 @@ public class DoubleLinkedListQueueTest {
         assertEquals(expectedValue[0], actualValue[0]);
         assertEquals(expectedValue[1], actualValue[1]);
         assertEquals(expectedValue[2], actualValue[2]);
-    }
-
-    private boolean isSorted(DoubleLinkedListQueue<?> list){
-        Comparator<Integer> comparator = Comparator.naturalOrder();
-        return list.isSorted(comparator);
     }
 }
