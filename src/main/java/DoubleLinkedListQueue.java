@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     private DequeNode firstNode;
@@ -100,5 +102,34 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public DequeNode getAt(int position) {
+        if (position >= this.size){
+            throw new RuntimeException("Position of getAt out of bounds");
+        }
+
+        DequeNode iterationNode = firstNode;
+        for (int i = 0; i < position; i++){
+            iterationNode = iterationNode.getNext();
+        }
+
+        return iterationNode;
+    }
+
+    @Override
+    public DequeNode find(Object item) {
+        return null;
+    }
+
+    @Override
+    public void delete(DequeNode node) {
+
+    }
+
+    @Override
+    public void sort(Comparator comparator) {
+
     }
 }
