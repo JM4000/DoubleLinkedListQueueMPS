@@ -2,6 +2,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -12,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 
 /*
-* Tests First Stage:
+* Tests:
 * 1. appendOfNullListHasSameNodeAsFirstAndLast: append on an empty list should be first and last
 * 2. appendLeftOfNullListHasSameNodeAsFirstAndLast: append left on an empty list should be first and last
 * 3. appendInsertsAtTheEndOfList: append should insert at the end of the list
@@ -31,8 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 * 16. peekLastInAnEmptyQueueRaisesException: peek last on an empty queue should raise an exception
 * 17. peekFirstWorkAsExpected: peek first should work as intended
 * 18. peekLastWorkAsExpected: peek last should work as intended
-*
-* Tests Second Stage:
 * */
 
 public class DoubleLinkedListQueueTest {
@@ -230,41 +230,21 @@ public class DoubleLinkedListQueueTest {
     }
 
     @Test
-    public void getAtOf1InEmptyListRaisesException(){
-        queue = null;
-        assertThrows(RuntimeException.class, ()-> queue.getAt(1));
-    }
-
-    // Queue starts in index 0
-    @Test
-    public void getAtOf2In2SizedListRaisesException(){
+    public void isSortedWorkAsExpected(){
         DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
-        queue.append(nodeOne);
-        nodeOne.setItem(Integer.valueOf(2));
-        queue.append(nodeOne);
-
-        assertThrows(RuntimeException.class, ()-> queue.getAt(2));
-    }
-
-    // Queue starts in index 0
-    @Test
-    public void getAtOf1In2SizedListReturnNodeTwo(){
-        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
-        queue.append(nodeOne);
         DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
-        queue.append(nodeTwo);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
 
-        assertEquals(nodeTwo.getItem(), queue.getAt(1).getItem());
+        queue.append(nodeOne);
+        queue.append(nodeTwo);
+        queue.append(nodeThree);
+
+        boolean expextedValue = true;
+        boolean actualValue = isSorted((DoubleLinkedListQueue<?>) queue);
     }
 
-    // Queue starts in index 0
-    @Test
-    public void getAtOf0In2SizedListReturnNodeOne(){
-        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
-        queue.append(nodeOne);
-        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
-        queue.append(nodeTwo);
-
-        assertEquals(nodeOne.getItem(), queue.getAt(0).getItem());
+    private boolean isSorted(DoubleLinkedListQueue<?> list){
+        Comparator<Integer> comparator = Comparator.naturalOrder();
+        return list.isSorted(comparator);
     }
 }

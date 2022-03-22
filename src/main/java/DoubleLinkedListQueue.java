@@ -106,16 +106,7 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     @Override
     public DequeNode getAt(int position) {
-        if (position >= this.size){
-            throw new RuntimeException("Position of getAt out of bounds");
-        }
-
-        DequeNode iterationNode = firstNode;
-        for (int i = 0; i < position; i++){
-            iterationNode = iterationNode.getNext();
-        }
-
-        return iterationNode;
+        return null;
     }
 
     @Override
@@ -131,5 +122,34 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
     @Override
     public void sort(Comparator comparator) {
 
+        if(firstNode == null){
+            throw new RuntimeException("Can't sort an empty List");
+        }else if(firstNode != lastNode) {
+            boolean isSorted = isSorted(comparator);
+            int index = 0;
+            while(!isSorted){
+
+            }
+        }
+
     }
+
+
+    public boolean isSorted(Comparator comparator) {
+
+        boolean sol = true;
+        var nodeOne = this.firstNode;
+        var nodeTwo = nodeOne.getNext();
+
+        while (sol && nodeTwo != null){
+            if(comparator.compare(nodeOne,nodeTwo)<0){
+                sol = false;
+            }
+            nodeOne = nodeTwo;
+            nodeTwo = nodeTwo.getNext();
+        }
+
+        return sol;
+    }
+
 }
