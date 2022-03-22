@@ -268,6 +268,38 @@ public class DoubleLinkedListQueueTest {
     }
 
     @Test
+    public void findNodeOneWhenContainedInQueue(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeOne.getItem(), queue.find(nodeOne).getItem());
+    }
+
+    @Test
+    public void findNodeThreeWhenNotContainedInQueueRaiseException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        assertThrows(RuntimeException.class, ()-> queue.find(nodeThree));
+    }
+
+    @Test
+    public void findNodeThreeWhenNullRaiseException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+        DequeNode nodeThree = null;
+
+        assertThrows(RuntimeException.class, ()-> queue.find(nodeThree));
+    }
+
+    @Test
     public void isSortedWorkAsExpected(){
         DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
         DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
