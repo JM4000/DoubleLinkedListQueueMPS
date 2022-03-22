@@ -120,7 +120,27 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue{
 
     @Override
     public DequeNode find(Object item) {
-        return null;
+        if (item == null){
+            throw new RuntimeException("Cannot find a null item");
+        }
+
+        DequeNode findableNode = (DequeNode) item;
+        DequeNode iterationNode = firstNode;
+        boolean found = false;
+        while(iterationNode != null && !found){
+            if (findableNode.getItem() == iterationNode.getItem()){
+                found = true;
+            } else {
+                iterationNode = iterationNode.getNext();
+            }
+
+        }
+
+        if (iterationNode == null){
+            throw new RuntimeException("Item not found");
+        }
+
+        return iterationNode;
     }
 
     @Override
