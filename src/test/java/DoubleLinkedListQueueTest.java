@@ -228,6 +228,44 @@ public class DoubleLinkedListQueueTest {
 
         assertEquals(expectedValue, actualValue);
     }
+    @Test
+    public void getAtOf1InEmptyListRaisesException(){
+        queue = null;
+        assertThrows(RuntimeException.class, ()-> queue.getAt(1));
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf2In2SizedListRaisesException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        nodeOne.setItem(Integer.valueOf(2));
+        queue.append(nodeOne);
+
+        assertThrows(RuntimeException.class, ()-> queue.getAt(2));
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf1In2SizedListReturnNodeTwo(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeTwo.getItem(), queue.getAt(1).getItem());
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf0In2SizedListReturnNodeOne(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeOne.getItem(), queue.getAt(0).getItem());
+    }
 
     @Test
     public void isSortedWorkAsExpected(){
