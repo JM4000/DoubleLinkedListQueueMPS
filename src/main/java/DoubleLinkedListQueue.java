@@ -108,8 +108,8 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue {
 
     @Override
     public DequeNode getAt(int position) {
-        if (position >= this.size) {
-            throw new RuntimeException("Position " + position + " out of bounds, (max: " + this.size + ")");
+        if (position >= this.size || position < 0) {
+            throw new RuntimeException("Position " + position + " out of bounds");
         }
 
         DequeNode iterationNode = firstNode;
