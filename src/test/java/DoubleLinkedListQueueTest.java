@@ -2,6 +2,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -225,5 +227,117 @@ public class DoubleLinkedListQueueTest {
         DequeNode actualValue = queue.peekLast();
 
         assertEquals(expectedValue, actualValue);
+    }
+    @Test
+    public void getAtOf1InEmptyListRaisesException(){
+        queue = null;
+        assertThrows(RuntimeException.class, ()-> queue.getAt(1));
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf2In2SizedListRaisesException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        nodeOne.setItem(Integer.valueOf(2));
+        queue.append(nodeOne);
+
+        assertThrows(RuntimeException.class, ()-> queue.getAt(2));
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf1In2SizedListReturnNodeTwo(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeTwo.getItem(), queue.getAt(1).getItem());
+    }
+
+    // Queue starts in index 0
+    @Test
+    public void getAtOf0In2SizedListReturnNodeOne(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeOne.getItem(), queue.getAt(0).getItem());
+    }
+
+    @Test
+    public void findNodeOneWhenContainedInQueue(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+
+        assertEquals(nodeOne.getItem(), queue.find(nodeOne).getItem());
+    }
+
+    @Test
+    public void findNodeThreeWhenNotContainedInQueueRaiseException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        assertThrows(RuntimeException.class, ()-> queue.find(nodeThree));
+    }
+
+    @Test
+    public void findNodeThreeWhenNullRaiseException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        queue.append(nodeOne);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        queue.append(nodeTwo);
+        DequeNode nodeThree = null;
+
+        assertThrows(RuntimeException.class, ()-> queue.find(nodeThree));
+    }
+
+    @Test
+    public void deleteWorksAsExpected(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeOne);
+        queue.append(nodeTwo);
+        queue.append(nodeThree);
+
+        queue.delete(nodeOne);
+
+        var expectedFirstNode = nodeTwo;
+        var actualFirstNode = queue.peekFirst();
+        var expectedSize = 2;
+        var actualSize = queue.size();
+
+        assertEquals(expectedSize, actualSize);
+        assertEquals(expectedFirstNode, actualFirstNode);
+    }
+
+    @Test
+    public void sortWorksAsExpected(){
+        int[] expectedValue = {1,2,3};
+
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeTwo);
+        queue.append(nodeOne);
+        queue.append(nodeThree);
+
+        queue.sort(Comparator.naturalOrder());
+
+        int[] actualValue = {(int)queue.getAt(0).getItem(), (int)queue.getAt(1).getItem(),(int)queue.getAt(2).getItem()};
+
+        assertEquals(expectedValue[0], actualValue[0]);
+        assertEquals(expectedValue[1], actualValue[1]);
+        assertEquals(expectedValue[2], actualValue[2]);
     }
 }
