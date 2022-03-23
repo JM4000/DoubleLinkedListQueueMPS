@@ -228,10 +228,16 @@ public class DoubleLinkedListQueueTest {
 
         assertEquals(expectedValue, actualValue);
     }
+
     @Test
     public void getAtOf1InEmptyListRaisesException(){
         queue = null;
         assertThrows(RuntimeException.class, ()-> queue.getAt(1));
+    }
+
+    @Test
+    public void getAtOfNeg1InQueueRaisesException(){
+        assertThrows(RuntimeException.class, ()-> queue.getAt(-1));
     }
 
     // Queue starts in index 0
@@ -300,7 +306,7 @@ public class DoubleLinkedListQueueTest {
     }
 
     @Test
-    public void deleteWorksAsExpected(){
+    public void deleteWorksForFirstElementDeletion(){
         DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
         DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
         DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
@@ -318,6 +324,57 @@ public class DoubleLinkedListQueueTest {
 
         assertEquals(expectedSize, actualSize);
         assertEquals(expectedFirstNode, actualFirstNode);
+    }
+
+    @Test
+    public void deleteWorksForLastElementDeletion(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeOne);
+        queue.append(nodeTwo);
+        queue.append(nodeThree);
+
+        queue.delete(nodeThree);
+
+        var expectedLastNode = nodeTwo;
+        var actualLastNode = queue.peekLast();
+        var expectedSize = 2;
+        var actualSize = queue.size();
+
+        assertEquals(expectedSize, actualSize);
+        assertEquals(expectedLastNode, actualLastNode);
+    }
+
+    @Test
+    public void deleteWorksForMiddleElementDeletion(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeOne);
+        queue.append(nodeTwo);
+        queue.append(nodeThree);
+
+        queue.delete(nodeTwo);
+
+        var expectedSize = 2;
+        var actualSize = queue.size();
+
+        assertEquals(expectedSize, actualSize);
+        assertThrows(RuntimeException.class, ()-> queue.find(nodeTwo));
+    }
+
+    @Test
+    public void deleteForMissingElementRaisesException(){
+        DequeNode nodeOne = new DequeNode<Integer>(Integer.valueOf(1), null, null);
+        DequeNode nodeTwo = new DequeNode<Integer>(Integer.valueOf(2), null, null);
+        DequeNode nodeThree = new DequeNode<Integer>(Integer.valueOf(3), null, null);
+
+        queue.append(nodeOne);
+        queue.append(nodeThree);
+        assertThrows(RuntimeException.class, ()-> queue.delete(nodeTwo));
     }
 
     @Test
