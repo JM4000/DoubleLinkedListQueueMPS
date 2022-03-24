@@ -25,3 +25,17 @@ DoubleLinkedListQueueTest:
 * 16. peekLastInAnEmptyQueueRaisesException: peek last on an empty queue should raise an exception
 * 17. peekFirstWorkAsExpected: peek first should work as intended
 * 18. peekLastWorkAsExpected: peek last should work as intended
+* 19. getAtOf1InEmptyListRaisesException: get from an empty queue raises an exception
+* 20. getAtOfNeg1InQueueRaisesException: get a negative index raises an exception
+* 21. getAtOf2In2SizedListRaisesException: get an index bigger than queue size -1 raises exception
+* 22. getAtOf1In2SizedListReturnNodeTwo |
+* 23. getAtOf0In2SizedListReturnNodeOne | getAt returns the element at given index
+* 24. findNodeOneWhenContainedInQueue: find the node an item is at
+* 25. findNodeThreeWhenNotContainedInQueueRaiseException: trying to find an item that is not in the queue raises an exception
+* 26. findNodeThreeWhenNullRaiseException: trying to find a null item raises an exception
+* 27. deleteWorksForFirstElementDeletion   |
+* 28. deleteWorksForLastElementDeletion    | delete works as expected
+* 29. deleteWorksForMiddleElementDeletion  |
+* 30. deleteForMissingElementRaisesException: deteting an element thas is not in de queue raises an exception
+* 31. sortWorksAsExpected: sort reorders the elements in the queue in the order given by the comparator
+* 32. sortOfAnEmptyQueueRaisesAnException: sorting an empty queue raises an exception

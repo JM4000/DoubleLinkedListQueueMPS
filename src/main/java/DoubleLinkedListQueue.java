@@ -205,21 +205,4 @@ public class DoubleLinkedListQueue<T> implements DoubleEndedQueue {
         return solution;
     }
 
-    public boolean isSorted(Comparator comparator) {
-
-        boolean sol = true;
-        var nodeOne = this.firstNode;
-        var nodeTwo = nodeOne.getNext();
-
-        while (sol && nodeTwo != null){
-            if(comparator.compare(nodeOne,nodeTwo)<0){
-                sol = false;
-            }
-            nodeOne = nodeTwo;
-            nodeTwo = nodeTwo.getNext();
-        }
-
-        return sol;
-    }
-
 }
